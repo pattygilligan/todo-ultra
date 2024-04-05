@@ -1,5 +1,10 @@
 import { sql } from "@vercel/postgres";
 import { NextApiRequest, NextApiResponse } from "next";
+import { Todo } from "~/lib/types";
+
+interface ApiResponse {
+  todos: Todo[];
+}
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
