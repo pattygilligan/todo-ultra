@@ -22,9 +22,7 @@ export function useAddTodo(onSuccess: OnSuccess) {
       onSuccess(newTodo);
       setIsLoading(false);
     } catch (error) {
-      throw new Error(
-        "Error adding response to database from useAdd Todo" + error,
-      );
+      throw new Error("Error adding response to database from useAdd Todo");
     }
   };
 

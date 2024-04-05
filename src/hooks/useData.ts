@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import type { Todo } from "~/lib/types";
 
 export function useData() {
-  const [todoList, setTodoList] = useState<Todo[] | any>([]);
+  const [todoList, setTodoList] = useState([]);
   const [dataLoading, setDataLoading] = useState(false);
 
   useEffect(() => {
