@@ -21,9 +21,7 @@ export function useToggleTodo(onSuccess: OnSuccess) {
       onSuccess(changeTodo.id);
       setIsLoading(false);
     } catch (error) {
-      throw new Error(
-        "Error adding response to database from useAdd Todo" + error,
-      );
+      throw new Error("Error adding response to database from useAdd Todo");
     }
   };
 

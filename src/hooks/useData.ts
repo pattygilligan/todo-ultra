@@ -13,7 +13,7 @@ export function useData() {
       })
         .then((response) => response.json())
         .then((data) => {
-          setTodoList(data.todos);
+          setTodoList(data.todos as Todo[]);
         })
         .catch((error) =>
           console.log("theres been an error fetching the data"),
