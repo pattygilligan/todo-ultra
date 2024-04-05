@@ -16,7 +16,6 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   } else if (req.method === "POST") {
     try {
-      console.log("Postin");
       const { id, text, done } = req.body;
       const result =
         await sql`INSERT INTO TodoList (Id, Text, Done) VALUES (${id}, ${text}, ${done}) ON CONFLICT (Id) DO UPDATE SET Text = EXCLUDED.Text, Done = EXCLUDED.Done`;

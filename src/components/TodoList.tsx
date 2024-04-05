@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Todo } from "~/lib/types";
 import { useAddTodo } from "~/hooks/useAddTodo";
-import todo from "~/pages/api/todo";
 import { useData } from "~/hooks/useData";
 import { useDeleteTodo } from "~/hooks/useDeleteTodo";
 import { useToggleTodo } from "~/hooks/useToggleTodo";
