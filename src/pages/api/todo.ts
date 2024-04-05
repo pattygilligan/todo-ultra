@@ -1,11 +1,13 @@
 import { sql } from "@vercel/postgres";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { Todo } from "~/lib/types";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
       const result = await sql`SELECT * FROM TodoList;`;
-      res.status(200).json({ result });
+      const todos: Todo[] = result.rows as Todo[];
+      res.status(200).json({ rows: todos });
     } catch (error) {
       console.log(error);
       res

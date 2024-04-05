@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Todo } from "~/lib/types";
 type OnSuccess = (id: string) => void;
 
 export function useDeleteTodo(onSuccess: OnSuccess) {
