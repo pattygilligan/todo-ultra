@@ -57,7 +57,7 @@ export default function TodoList() {
   };
 
   useEffect(() => {
-    setTodoList(fetchedTodoList);
+    setTodoList(fetchedTodoList || []);
   }, [fetchedTodoList]);
 
   return (

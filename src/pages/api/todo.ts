@@ -1,13 +1,12 @@
 import { sql } from "@vercel/postgres";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { Todo } from "~/lib/types";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
       const result = await sql`SELECT * FROM TodoList;`;
-      const todos: Todo[] = result.rows as Todo[];
-      res.status(200).json({ rows: todos });
+      const todos = result.rows;
+      res.status(200).json({ todos });
     } catch (error) {
       console.log(error);
       res
@@ -19,7 +18,6 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const { id, text, done } = req.body;
       const result =
         await sql`INSERT INTO TodoList (Id, Text, Done) VALUES (${id}, ${text}, ${done}) ON CONFLICT (Id) DO UPDATE SET Text = EXCLUDED.Text, Done = EXCLUDED.Done`;
-      console.log(result);
       res.status(200).json({ result });
     } catch (error) {
       console.log(error);
@@ -27,10 +25,8 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   } else if (req.method === "DELETE") {
     try {
-      const id = req.body;
-      console.log(id);
+      const { id } = req.body;
       const result = await sql`DELETE FROM TodoList WHERE Id = ${id};`;
-      console.log(result);
       res.status(200).json({ result });
     } catch (error) {
       console.log(error);

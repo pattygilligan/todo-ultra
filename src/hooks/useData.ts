@@ -13,7 +13,7 @@ export function useData() {
       })
         .then((response) => response.json())
         .then((data) => {
-          setTodoList(data.result.rows);
+          setTodoList(data.todos);
         })
         .catch((error) =>
           console.log("theres been an error fetching the data"),
