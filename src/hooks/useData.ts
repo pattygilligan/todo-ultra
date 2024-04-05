@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import type { Todo } from "~/lib/types";
 
 export function useData() {
-  const [todoList, setTodoList] = useState<Todo[]>([]);
+  const [todoList, setTodoList] = useState<Todo[] | any>([]);
   const [dataLoading, setDataLoading] = useState(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export function useData() {
           console.log("theres been an error fetching the data"),
         );
     } catch (error) {
-      throw new Error("Error fetching data" + error);
+      throw new Error("Error fetching data");
     }
     setDataLoading(false);
   }, []);
