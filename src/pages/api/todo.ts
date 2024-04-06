@@ -1,6 +1,5 @@
 import { sql } from "@vercel/postgres";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Todo } from "~/lib/types";
 import { z } from "zod";
 import { TodoSchema } from "~/lib/types";
 
@@ -8,8 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
       const result = await sql`SELECT * FROM TodoList;`;
-      const todos = result.rows;
-      const validatedTodos = TodoSchema.array().parse(todos);
+      const validatedTodos = TodoSchema.array().parse(result.rows);
       res.status(200).json({ todos: validatedTodos });
     } catch (error) {
       console.log(error);
@@ -27,7 +25,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (req.method === "POST") {
     try {
       const newTodo = TodoSchema.parse(req.body);
-      console.log(newTodo);
       const { id, text, done } = newTodo;
       const result =
         await sql`INSERT INTO TodoList (Id, Text, Done) VALUES (${id}, ${text}, ${done}) ON CONFLICT (Id) DO UPDATE SET Text = EXCLUDED.Text, Done = EXCLUDED.Done`;
@@ -43,8 +40,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   } else if (req.method === "DELETE") {
     try {
-      const id = req.body;
-      const result = await sql`DELETE FROM TodoList WHERE Id = ${id};`;
+      const deleteTodo = TodoSchema.parse(req.body);
+      const result =
+        await sql`DELETE FROM TodoList WHERE Id = ${deleteTodo.id};`;
       res.status(200).json({ result });
     } catch (error) {
       console.log(error);

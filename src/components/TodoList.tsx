@@ -52,8 +52,8 @@ export default function TodoList() {
     }
   };
 
-  const handleDeleteTodo = async (id: number) => {
-    await deleteTodo(id);
+  const handleDeleteTodo = async (todo: Todo) => {
+    await deleteTodo(todo);
   };
 
   useEffect(() => {
@@ -83,7 +83,7 @@ export default function TodoList() {
               <p>{item.text}</p>
               <button
                 type="button"
-                onClick={() => handleDeleteTodo(item.id)}
+                onClick={() => handleDeleteTodo(item)}
                 className="flex-grow text-red-400"
               >
                 delete

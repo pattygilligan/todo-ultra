@@ -1,26 +1,25 @@
 import { useState } from "react";
+import type { Todo } from "~/lib/types";
 type OnSuccess = (id: number) => void;
 
 export function useDeleteTodo(onSuccess: OnSuccess) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const deleteTodo = async (id: number) => {
+  const deleteTodo = async (todo: Todo) => {
     try {
-      console.log("entering deleted todo");
-      console.log(id);
       setIsLoading(true);
       const response = await fetch("/api/todo", {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(id),
+        body: JSON.stringify(todo),
       });
       if (!response.ok) {
         throw new Error("Error adding response to database from useAdd Todo");
       }
       console.log(response);
-      onSuccess(id);
+      onSuccess(todo.id);
       setIsLoading(false);
     } catch (error) {
       throw new Error("Error adding response to database from useAdd Todo");
