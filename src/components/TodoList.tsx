@@ -12,18 +12,18 @@ export default function TodoList() {
 
   function generateId() {
     // This is NOT recommended for production use
-    return Date.now().toString().slice(-4);
+    return Number(Date.now().toString().slice(-4));
   }
 
   const onAddSuccess = (newTodo: Todo) => {
     setTodoList([...todoList, newTodo]);
   };
 
-  const onDeleteSuccess = (id: string) => {
+  const onDeleteSuccess = (id: number) => {
     setTodoList(todoList.filter((item) => id !== item.id));
   };
 
-  const onToggleSuccess = (id: string) => {
+  const onToggleSuccess = (id: number) => {
     setTodoList(
       todoList.map((item) =>
         item.id === id ? { ...item, done: !item.done } : item,
@@ -41,7 +41,7 @@ export default function TodoList() {
     setInputText("");
   };
 
-  const handleTodoChange = async (id: string) => {
+  const handleTodoChange = async (id: number) => {
     const updatedTodoList = todoList.map((item) =>
       item.id === id ? { ...item, done: !item.done } : item,
     );
@@ -52,7 +52,7 @@ export default function TodoList() {
     }
   };
 
-  const handleDeleteTodo = async (id: string) => {
+  const handleDeleteTodo = async (id: number) => {
     await deleteTodo(id);
   };
 

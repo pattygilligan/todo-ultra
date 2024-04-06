@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Todo } from "~/lib/types";
-type OnSuccess = (id: string) => void;
+type OnSuccess = (id: number) => void;
 
 export function useToggleTodo(onSuccess: OnSuccess) {
   const [isLoading, setIsLoading] = useState(false);

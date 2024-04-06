@@ -1,11 +1,13 @@
 import { useState } from "react";
-type OnSuccess = (id: string) => void;
+type OnSuccess = (id: number) => void;
 
 export function useDeleteTodo(onSuccess: OnSuccess) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const deleteTodo = async (id: string) => {
+  const deleteTodo = async (id: number) => {
     try {
+      console.log("entering deleted todo");
+      console.log(id);
       setIsLoading(true);
       const response = await fetch("/api/todo", {
         method: "DELETE",
@@ -17,7 +19,7 @@ export function useDeleteTodo(onSuccess: OnSuccess) {
       if (!response.ok) {
         throw new Error("Error adding response to database from useAdd Todo");
       }
-      console.log("successfully deleted todo");
+      console.log(response);
       onSuccess(id);
       setIsLoading(false);
     } catch (error) {
